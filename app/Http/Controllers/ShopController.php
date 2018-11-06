@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Shop;
 use Illuminate\Http\Request;
+use Validator;
 
 class ShopController extends Controller
 {
@@ -47,6 +48,24 @@ class ShopController extends Controller
     public function store(Request $request)
     {
         try {
+
+            $validator = Validator::make($request->all(), [
+                'name' => 'bail|required|string|max:255',
+                'cuisines_available' => 'bail|required|integer',
+                'opening_hours' => 'bail|required|string|max:255',
+                'address' => 'bail|required|string|max:255',
+                'phone_number' => 'bail|required|integer',
+                'description' => 'bail|required|string|max:255',
+            ]);
+
+            if ($validator->fails()) {
+                foreach ($validator->errors()->all() as $error) {
+                    return response()->json([
+                        'error' => true,
+                        'message' => $error
+                    ], 400);
+                }
+            }
 
             $shop = new Shop;
             $shop->name = $request->name;
