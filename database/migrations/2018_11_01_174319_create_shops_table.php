@@ -17,7 +17,7 @@ class CreateShopsTable extends Migration
             $table->increments('id');
             $table->string('name')->nullable(false);
             $table->integer('cuisines_available')->nullable(false);
-            $table->string('opening_hours')->nullable(false);
+            $table->integer('opening_hours')->nullable(false);
             $table->string('address')->nullable(false);
             $table->integer('phone_number')->nullable(true);
             $table->boolean('verified_phone')->default(false);
