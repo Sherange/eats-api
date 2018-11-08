@@ -17,7 +17,7 @@ class CreateShopPhotosTable extends Migration
             $table->increments('id');
             $table->string('image_path')->nullable(false);
             $table->string('image_thumb')->nullable(false);
-            $table->boolean('main_image')->default(false);
+            $table->enum('main_image', ['true', 'false']);
             $table->unsignedInteger('shop_id');
             $table->timestamps();
             $table->foreign('shop_id')->references('id')->on('shops');

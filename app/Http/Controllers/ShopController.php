@@ -76,6 +76,7 @@ class ShopController extends Controller
             $shop->verified_phone = false;
             $shop->description = $request->description;
             $shop->status = 0;
+            $shop->user_id = $request->user_id;
             $shop->save();
 
             return response()->json([

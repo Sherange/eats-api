@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\ShopPhoto;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 
 class ShopPhotoController extends Controller
@@ -18,16 +19,6 @@ class ShopPhotoController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -35,7 +26,30 @@ class ShopPhotoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $baseUrl = config('app.base_url') ;
+
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $fileName = $file->getClientOriginalName();
+            $fileExtension = $file->extension();
+            $newFileName = "shops/" . uniqid() . "." . $fileExtension;
+            Storage::putFileAs('public', $file, $newFileName);
+        }
+
+        $shopPhoto = new ShopPhoto();
+        $shopPhoto->image_path = $baseUrl."/storage/".$newFileName;
+        $shopPhoto->image_thumb = $newFileName;
+        $shopPhoto->main_image = $request->main_image;
+        $shopPhoto->shop_id = $request->shop_id;
+        $shopPhoto->save();
+
+        return response()->json([
+            'error' => false,
+            'message' => 'Photos Upload Successfuly',
+        ], 200);
+        
+        // return ($request->file('image_path'));
     }
 
     /**
@@ -45,17 +59,6 @@ class ShopPhotoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(ShopPhoto $shopPhoto)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\ShopPhoto  $shopPhoto
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(ShopPhoto $shopPhoto)
     {
         //
     }
