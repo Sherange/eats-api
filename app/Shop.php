@@ -14,4 +14,13 @@ class Shop extends Model
     protected $fillable = [
         'name', 'cuisines_available', 'opening_hours', 'address', 'phone_number', 'verified_phone', 'description', 'status'
     ];
+
+
+    /**
+     * Get the photos for the shop.
+     */
+    public function shopPhotos()
+    {
+        return $this->hasMany('App\ShopPhoto');
+    }
 }

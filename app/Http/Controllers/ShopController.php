@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Shop;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Validator;
 
 class ShopController extends Controller
@@ -174,6 +175,25 @@ class ShopController extends Controller
             ], 200);
 
         } catch (\Excepton $e) {
+            return response()->json([
+                'error' => true,
+                'message' => 'Something went wrong please contact support center',
+                'dev_message' => $e->getMessage(),
+            ], 400);
+        }
+    }
+
+    public function getUserShops(Request $request)
+    {
+        try {
+            $user = Auth::user();
+            $shops = Shop::where('user_id', $user->id)->with('shopPhotos')->get();
+
+            return response()->json([
+                'error' => false,
+                'data' => $shops,
+            ], 200);
+        } catch (\Exception $e) {
             return response()->json([
                 'error' => true,
                 'message' => 'Something went wrong please contact support center',

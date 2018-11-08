@@ -39,7 +39,7 @@ class ShopPhotoController extends Controller
 
             $shopPhoto = new ShopPhoto();
             $shopPhoto->image_path = $baseUrl . "/storage/" . $newFileName;
-            $shopPhoto->image_thumb = $newFileName;
+            $shopPhoto->image_thumb = $baseUrl . "/storage/" . $newFileName;
             $shopPhoto->main_image = $request->main_image;
             $shopPhoto->shop_id = $request->shop_id;
             $shopPhoto->save();

@@ -25,4 +25,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::middleware('auth:api')->group(function () {
     Route::resource('shop', 'ShopController');
     Route::resource('shop-photos', 'ShopPhotoController');
+    Route::get('user-shops','ShopController@getUserShops');
 });
