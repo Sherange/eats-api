@@ -22,5 +22,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $user;
 });
 
-Route::resource('shop', 'ShopController');
-Route::resource('shop-photos', 'ShopPhotoController');
+Route::middleware('auth:api')->group(function () {
+    Route::resource('shop', 'ShopController');
+    Route::resource('shop-photos', 'ShopPhotoController');
+});

@@ -26,30 +26,36 @@ class ShopPhotoController extends Controller
      */
     public function store(Request $request)
     {
+        try {
+            $baseUrl = config('app.base_url');
 
-        $baseUrl = config('app.base_url') ;
+            if ($request->hasFile('image')) {
+                $file = $request->file('image');
+                $fileName = $file->getClientOriginalName();
+                $fileExtension = $file->extension();
+                $newFileName = "shops/" . uniqid() . "." . $fileExtension;
+                Storage::putFileAs('public', $file, $newFileName);
+            }
 
-        if ($request->hasFile('image')) {
-            $file = $request->file('image');
-            $fileName = $file->getClientOriginalName();
-            $fileExtension = $file->extension();
-            $newFileName = "shops/" . uniqid() . "." . $fileExtension;
-            Storage::putFileAs('public', $file, $newFileName);
+            $shopPhoto = new ShopPhoto();
+            $shopPhoto->image_path = $baseUrl . "/storage/" . $newFileName;
+            $shopPhoto->image_thumb = $newFileName;
+            $shopPhoto->main_image = $request->main_image;
+            $shopPhoto->shop_id = $request->shop_id;
+            $shopPhoto->save();
+
+            return response()->json([
+                'error' => false,
+                'message' => 'Photos Upload Successfully',
+            ], 200);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => true,
+                'message' => 'Something went wrong please contact support center',
+                'dev_message' => $e->getMessage(),
+            ], 400);
         }
-
-        $shopPhoto = new ShopPhoto();
-        $shopPhoto->image_path = $baseUrl."/storage/".$newFileName;
-        $shopPhoto->image_thumb = $newFileName;
-        $shopPhoto->main_image = $request->main_image;
-        $shopPhoto->shop_id = $request->shop_id;
-        $shopPhoto->save();
-
-        return response()->json([
-            'error' => false,
-            'message' => 'Photos Upload Successfuly',
-        ], 200);
-        
-        // return ($request->file('image_path'));
     }
 
     /**
