@@ -130,8 +130,7 @@ class ShopController extends Controller
     public function update(Request $request, Shop $shop)
     {
         try {
-            // dd($shop->name);
-            dd($request->name);
+
             $shop->name = $request->name;
             $shop->cuisines_available = $request->cuisines_available;
             $shop->opening_hours = $request->opening_hours;
