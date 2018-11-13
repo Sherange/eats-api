@@ -55,4 +55,24 @@ class UserController extends Controller
         }
 
     }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, User $user)
+    {
+        try {
+            dd($user);
+        } catch (\Exception $e) {
+            return responce()->json([
+                'error' => true,
+                'message' => 'Something went wrong please contact support center',
+                'dev_message' => $e->getMessage(),
+            ], 400);
+        }
+    }
 }
