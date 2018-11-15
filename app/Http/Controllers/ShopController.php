@@ -56,7 +56,7 @@ class ShopController extends Controller
                 'opening_hours' => 'bail|required|integer',
                 'address' => 'bail|required|string|max:255',
                 'phone_number' => 'bail|required|integer',
-                'description' => 'bail|required|string|max:255',
+                'description' => 'bail|required|string',
             ]);
 
             if ($validator->fails()) {
@@ -72,7 +72,7 @@ class ShopController extends Controller
             $shop->name = $request->name;
             $shop->cuisines_available = $request->cuisines_available;
             $shop->opening_hours = $request->opening_hours;
-            $shop->address = $request->address;
+            // $shop->address = $request->address;
             $shop->phone_number = $request->phone_number;
             $shop->verified_phone = false;
             $shop->description = $request->description;
