@@ -57,6 +57,19 @@ class UserController extends Controller
     }
 
     /**
+     * Get login user data.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function getUser(Request $request)
+    {
+        $user = $request->user();
+        $user = $user->with('userAddress')->get();
+        return $user;
+    }
+
+    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -66,7 +79,15 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         try {
-            dd($user);
+
+            $user->name = $request->name;
+            $user->image_path = '';
+            $user->image_thumb = '';
+            $user->phone_number = $request->phone_number;
+            $user->date_of_birth = $request->date_of_birth;
+            $user->gender = $request->gender;
+            $user->save();
+
         } catch (\Exception $e) {
             return responce()->json([
                 'error' => true,

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\user_address;
+use App\UserAddress;
 use Illuminate\Http\Request;
 
 class UserAddressController extends Controller
@@ -41,10 +41,10 @@ class UserAddressController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\user_address  $user_address
+     * @param  \App\UserAddress  $UserAddress
      * @return \Illuminate\Http\Response
      */
-    public function show(user_address $user_address)
+    public function show(UserAddress $userAddress)
     {
         //
     }
@@ -52,10 +52,10 @@ class UserAddressController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\user_address  $user_address
+     * @param  \App\UserAddress  $UserAddress
      * @return \Illuminate\Http\Response
      */
-    public function edit(user_address $user_address)
+    public function edit(UserAddress $userAddress)
     {
         //
     }
@@ -64,10 +64,10 @@ class UserAddressController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\user_address  $user_address
+     * @param  \App\UserAddress  $UserAddress
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, user_address $user_address)
+    public function update(Request $request, UserAddress $userAddress)
     {
         //
     }
@@ -75,10 +75,10 @@ class UserAddressController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\user_address  $user_address
+     * @param  \App\UserAddress  $UserAddress
      * @return \Illuminate\Http\Response
      */
-    public function destroy(user_address $user_address)
+    public function destroy(UserAddress $userAddress)
     {
         //
     }

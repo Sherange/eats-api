@@ -19,6 +19,7 @@ class AddColumsToUserTable extends Migration
             $table->string('phone_number')->after('image_thumb')->nullable(true);
             $table->date('date_of_birth')->after('phone_number')->nullable(true);
             $table->string('gender')->after('date_of_birth')->nullable(true);
+            $table->string('description')->after('gender')->nullable(true);
         });
     }
 
@@ -36,6 +37,7 @@ class AddColumsToUserTable extends Migration
             $table->dropColumn('phone_number');
             $table->dropColumn('date_of_birth');
             $table->dropColumn('gender');
+            $table->dropColumn('description');
         });
     }
 }

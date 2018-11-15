@@ -13,17 +13,15 @@ use Illuminate\Http\Request;
 |
  */
 
-Route::group(['prefix' => 'user'], function () {
-    Route::post('register', 'UserController@register');
-});
-
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    $user = $request->user();
-    return $user;
-});
+// Route::group(['prefix' => 'user'], function () {
+//     Route::post('register', 'UserController@register');
+// });
 
 Route::middleware('auth:api')->group(function () {
     Route::resource('shop', 'ShopController');
     Route::resource('shop-photos', 'ShopPhotoController');
-    Route::get('user-shops','ShopController@getUserShops');
+    Route::get('user-shops', 'ShopController@getUserShops');
+
+    Route::get('user', 'UserController@getUser');
+    Route::patch('user/{user}', 'UserController@update');
 });
