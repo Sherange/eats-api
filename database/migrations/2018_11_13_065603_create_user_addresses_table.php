@@ -15,14 +15,14 @@ class CreateUserAddressesTable extends Migration
     {
         Schema::create('user_addresses', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('address')->nullable(true);
-            $table->string('street_one')->nullable(true);
-            $table->string('street_two')->nullable(true);
-            $table->string('latitude')->nullable(true);
-            $table->string('longitude')->nullable(true);
-            $table->string('zip_code')->nullable(true);
-            $table->string('city')->nullable(false);
-            $table->string('country')->nullable(false);
+            $table->string('address', 100)->nullable(true);
+            $table->string('street_one', 100)->nullable(true);
+            $table->string('street_two', 100)->nullable(true);
+            $table->string('latitude', 100)->nullable(true);
+            $table->string('longitude', 100)->nullable(true);
+            $table->string('zip_code', 100)->nullable(true);
+            $table->string('city', 100)->nullable(false);
+            $table->string('country', 100)->nullable(false);
             $table->unsignedInteger('user_id');
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users');

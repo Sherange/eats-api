@@ -16,10 +16,10 @@ class AddColumsToUserTable extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->string('image_path')->after('password')->nullable(true);
             $table->string('image_thumb')->after('image_path')->nullable(true);
-            $table->string('phone_number')->after('image_thumb')->nullable(true);
+            $table->string('phone_number',100)->after('image_thumb')->nullable(true);
             $table->date('date_of_birth')->after('phone_number')->nullable(true);
-            $table->string('gender')->after('date_of_birth')->nullable(true);
-            $table->string('description')->after('gender')->nullable(true);
+            $table->string('gender',100)->after('date_of_birth')->nullable(true);
+            $table->text('description')->after('gender')->nullable(true);
         });
     }
 

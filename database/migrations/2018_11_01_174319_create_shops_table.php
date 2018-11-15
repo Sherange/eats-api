@@ -15,13 +15,12 @@ class CreateShopsTable extends Migration
     {
         Schema::create('shops', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name')->nullable(false);
+            $table->string('name',100)->nullable(false);
             $table->integer('cuisines_available')->nullable(false);
             $table->integer('opening_hours')->nullable(false);
-            $table->string('address')->nullable(false);
-            $table->integer('phone_number')->nullable(true);
-            $table->boolean('verified_phone')->default(false);
-            $table->string('description')->nullable(false);
+            $table->string('phone_number',100)->nullable(true);
+            $table->boolean('verified_phone')->default(0);
+            $table->text('description')->nullable(false);
             $table->integer('status')->default(0);
             $table->timestamps();
         });
