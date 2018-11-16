@@ -54,7 +54,7 @@ class ShopController extends Controller
                 'name' => 'bail|required|string|max:255',
                 'cuisines_available' => 'bail|required|integer',
                 'opening_hours' => 'bail|required|integer',
-                'address' => 'bail|required|string|max:255',
+                // 'address' => 'bail|required|string|max:255',
                 'phone_number' => 'bail|required|integer',
                 'description' => 'bail|required|string',
             ]);

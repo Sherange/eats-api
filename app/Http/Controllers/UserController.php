@@ -80,6 +80,29 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         try {
+
+            $validator = Validator::make($request->all(), [
+                'name' => 'bail|required|string|max:100',
+                'phone_number' => 'bail|required|unique:users,id|integer',
+                'date_of_birth' => 'bail|required|date|before:today',
+                'gender' => 'bail|required|string|max:100',
+                'description' => 'bail|required|string',
+                'address' => 'bail|required|string|max:100',
+                'street_one' => 'bail|required|string|max:100',
+                'street_two' => 'bail|string|max:100',
+                'city' => 'bail|string|max:100',
+                'country' => 'bail|string|max:100',
+            ]);
+
+            if ($validator->fails()) {
+                foreach ($validator->errors()->all() as $error) {
+                    return response()->json([
+                        'error' => true,
+                        'message' => $error
+                    ], 400);
+                }
+            }
+
             $user->name = $request->name;
             $user->phone_number = $request->phone_number;
             $user->date_of_birth = $request->date_of_birth;
@@ -91,9 +114,8 @@ class UserController extends Controller
             $userAddress->street_one = $request->street_one;
             $userAddress->street_two = $request->steet_two;
             $userAddress->city = $request->city;
-            $userAddress->country = $request->country;    
-           
-           
+            $userAddress->country = $request->country;
+
             $user->userAddress()->save($userAddress);
             $user->save();
 
