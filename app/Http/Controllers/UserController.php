@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Validator;
+use App\UserAddress;
 use App\User;
 
 
@@ -79,17 +80,31 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         try {
-
             $user->name = $request->name;
-            $user->image_path = '';
-            $user->image_thumb = '';
             $user->phone_number = $request->phone_number;
             $user->date_of_birth = $request->date_of_birth;
             $user->gender = $request->gender;
+            $user->description = $request->description;
+
+            $userAddress = UserAddress::firstOrNew(['user_id' => $user->id]);
+            $userAddress->address = $request->address;
+            $userAddress->street_one = $request->street_one;
+            $userAddress->street_two = $request->steet_two;
+            $userAddress->city = $request->city;
+            $userAddress->country = $request->country;    
+           
+           
+            $user->userAddress()->save($userAddress);
             $user->save();
 
+            return response()->json([
+                'error' => false,
+                'message' => 'User Successfully Updated!',
+                'data' => $user->fresh('userAddress'),
+            ], 201);
+
         } catch (\Exception $e) {
-            return responce()->json([
+            return response()->json([
                 'error' => true,
                 'message' => 'Something went wrong please contact support center',
                 'dev_message' => $e->getMessage(),
