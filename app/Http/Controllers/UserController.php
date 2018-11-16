@@ -66,7 +66,7 @@ class UserController extends Controller
     public function getUser(Request $request)
     {
         $user = $request->user();
-        $user->user_address = $user->userAddress();
+        $user->user_address = $user->userAddress()->first();
         return $user;
     }
 
