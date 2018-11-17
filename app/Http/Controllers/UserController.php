@@ -89,7 +89,7 @@ class UserController extends Controller
                 'description' => 'bail|required|string',
                 'address' => 'bail|required|string|max:100',
                 'street_one' => 'bail|required|string|max:100',
-                'street_two' => 'bail|string|max:100',
+                'street_two' => 'bail|nullable|string|max:100',
                 'city' => 'bail|string|max:100',
                 'country' => 'bail|string|max:100',
             ]);
@@ -112,7 +112,7 @@ class UserController extends Controller
             $userAddress = UserAddress::firstOrNew(['user_id' => $user->id]);
             $userAddress->address = $request->address;
             $userAddress->street_one = $request->street_one;
-            $userAddress->street_two = $request->steet_two;
+            $userAddress->street_two = $request->street_two;
             $userAddress->city = $request->city;
             $userAddress->country = $request->country;
 
