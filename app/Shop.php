@@ -21,6 +21,6 @@ class Shop extends Model
      */
     public function shopPhotos()
     {
-        return $this->hasMany('App\ShopPhoto');
+        return $this->hasMany('App\ShopPhoto')->orderBy('id', 'desc');
     }
 }

@@ -24,4 +24,5 @@ Route::middleware('auth:api')->group(function () {
 
     Route::get('user', 'UserController@getUser');
     Route::patch('user/{user}', 'UserController@update');
+    Route::post('profile-photo/{user}', 'UserController@upload');
 });

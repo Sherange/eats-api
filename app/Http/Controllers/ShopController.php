@@ -186,7 +186,7 @@ class ShopController extends Controller
     {
         try {
             $user = Auth::user();
-            $shops = Shop::where('user_id', $user->id)->with('shopPhotos')->get();
+            $shops = Shop::where('user_id', $user->id)->with('shopPhotos')->orderBy('id', 'desc')->get();
 
             return response()->json([
                 'error' => false,

@@ -35,20 +35,19 @@ class ShopPhotoController extends Controller
                 $fileExtension = $file->extension();
                 $newFileName = "shops/" . uniqid() . "." . $fileExtension;
                 Storage::putFileAs('public', $file, $newFileName);
+
+                $shopPhoto = new ShopPhoto();
+                $shopPhoto->image_path = $baseUrl . "/storage/" . $newFileName;
+                $shopPhoto->image_thumb = $baseUrl . "/storage/" . $newFileName;
+                $shopPhoto->main_image = $request->main_image;
+                $shopPhoto->shop_id = $request->shop_id;
+                $shopPhoto->save();
+
+                return response()->json([
+                    'error' => false,
+                    'message' => 'Photos Upload Successfully',
+                ], 200);
             }
-
-            $shopPhoto = new ShopPhoto();
-            $shopPhoto->image_path = $baseUrl . "/storage/" . $newFileName;
-            $shopPhoto->image_thumb = $baseUrl . "/storage/" . $newFileName;
-            $shopPhoto->main_image = $request->main_image;
-            $shopPhoto->shop_id = $request->shop_id;
-            $shopPhoto->save();
-
-            return response()->json([
-                'error' => false,
-                'message' => 'Photos Upload Successfully',
-            ], 200);
-
         } catch (\Exception $e) {
             return response()->json([
                 'error' => true,

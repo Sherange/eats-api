@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Validator;
 use App\UserAddress;
 use App\User;
@@ -133,4 +134,41 @@ class UserController extends Controller
             ], 400);
         }
     }
+
+    /**
+     * Upload the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function upload(Request $request, User $user)
+    {
+        try {
+            $baseUrl = config('app.base_url');
+
+            if ($request->hasFile('image')) {
+                $file = $request->file('image');
+                $fileName = $file->getClientOriginalName();
+                $fileExtension = $file->extension();
+                $newFileName = "users/" . uniqid() . "." . $fileExtension;
+                Storage::putFileAs('public', $file, $newFileName);
+
+                $user->image_path = $baseUrl . "/storage/" . $newFileName;
+                $user->image_thumb = $baseUrl . "/storage/" . $newFileName;
+                $user->save();
+
+                return response()->json([
+                    'error' => false,
+                    'message' => 'Photos Upload Successfully',
+                ], 200);
+            }
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => true,
+                'message' => 'Something went wrong please contact support center',
+                'dev_message' => $e->getMessage(),
+            ], 400);
+        }
+    }
+
 }
