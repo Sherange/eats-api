@@ -118,7 +118,11 @@ class ShopController extends Controller
     public function show(Shop $shop)
     {
         try {
-            return response()->json([
+          
+          $shop->shop_address =  $shop->shopAddress()->first();
+          $shop->shop_photos =  $shop->shopPhotos()->get();
+           
+           return response()->json([
                 'error' => false,
                 'data' => $shop,
             ], 200);
