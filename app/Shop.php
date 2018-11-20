@@ -1,7 +1,7 @@
 <?php
 
 namespace App;
-
+use App\ShopAddress;
 use Illuminate\Database\Eloquent\Model;
 
 class Shop extends Model
@@ -22,5 +22,13 @@ class Shop extends Model
     public function shopPhotos()
     {
         return $this->hasMany('App\ShopPhoto')->orderBy('id', 'desc');
+    }
+
+    /**
+     * Get the address of the shop.
+     */
+    public function shopAddress()
+    {
+        return $this->hasOne('App\ShopAddress');
     }
 }
