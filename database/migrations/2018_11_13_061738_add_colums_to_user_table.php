@@ -18,7 +18,7 @@ class AddColumsToUserTable extends Migration
             $table->string('image_thumb')->after('image_path')->nullable(true);
             $table->string('phone_number',100)->after('image_thumb')->nullable(true);
             $table->date('date_of_birth')->after('phone_number')->nullable(true);
-            $table->string('gender',100)->after('date_of_birth')->nullable(true);
+            $table->integer('gender')->after('date_of_birth')->nullable(true);
             $table->text('description')->after('gender')->nullable(true);
         });
     }

@@ -86,7 +86,7 @@ class UserController extends Controller
                 'name' => 'bail|required|string|max:100',
                 'phone_number' => 'bail|required|unique:users,id|integer',
                 'date_of_birth' => 'bail|required|date|before:today',
-                'gender' => 'bail|required|string|max:100',
+                'gender' => 'bail|required|integer',
                 'description' => 'bail|required|string',
                 'address' => 'bail|required|string|max:100',
                 'street_one' => 'bail|required|string|max:100',
