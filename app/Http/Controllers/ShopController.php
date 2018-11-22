@@ -53,7 +53,7 @@ class ShopController extends Controller
         try {
 
             $validator = Validator::make($request->all(), [
-                'name' => 'bail|required|string|max:255',
+                'name' => 'bail|required|string|max:100',
                 'cuisines_available' => 'bail|required|integer',
                 'opening_hours' => 'bail|required|integer',
                 'phone_number' => 'bail|required|integer',
