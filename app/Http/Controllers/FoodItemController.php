@@ -89,7 +89,7 @@ class FoodItemController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, FoodItem $foodItem)
-    {
+    { 
         try {
 
             $validator = Validator::make($request->all(), [
