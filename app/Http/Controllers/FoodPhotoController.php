@@ -35,7 +35,7 @@ class FoodPhotoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**

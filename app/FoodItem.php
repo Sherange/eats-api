@@ -1,7 +1,6 @@
 <?php
 
 namespace App;
-
 use Illuminate\Database\Eloquent\Model;
 
 class FoodItem extends Model
@@ -14,4 +13,12 @@ class FoodItem extends Model
     protected $fillable = [
         'name', 'category', 'type', 'price', 'description', 'shop_id'
     ];
+
+    /**
+     * Get the photos for the food.
+     */
+    public function foodPhotos()
+    {
+        return $this->hasMany('App\FoodPhoto');
+    }
 }

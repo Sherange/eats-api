@@ -27,4 +27,6 @@ Route::middleware('auth:api')->group(function () {
     Route::post('profile-photo/{user}', 'UserController@upload');
 
     Route::resource('food-item', 'FoodItemController');
+    Route::resource('food-photos', 'FoodPhotoController');
+    Route::get('shop-foods/{shop_id}', 'FoodItemController@getShopFoods');
 });
