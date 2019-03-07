@@ -1,6 +1,7 @@
 <?php
 
 namespace App;
+use App\ShopPhoto;
 use Illuminate\Database\Eloquent\Model;
 
 class Shop extends Model
@@ -30,11 +31,21 @@ class Shop extends Model
     {
         return $this->hasMany('App\FoodItem')->orderBy('id', 'desc');
     }
+   
     /**
      * Get the address of the shop.
      */
     public function shopAddress()
     {
         return $this->hasOne('App\ShopAddress');
+    }
+    
+    /**
+     * Get the fisrt photo of the shop.
+     */
+    public function getShopPhoto()
+    {
+        $shopPhoto = ShopPhoto::where('shop_id', $this->id)->firstorfail();
+        return $shopPhoto;
     }
 }

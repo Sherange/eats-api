@@ -18,7 +18,19 @@ class FoodItemController extends Controller
      */
     public function index()
     {
-        //
+        try {
+            $query = FoodItem::with(['shop', 'foodPhotos', 'shop.shopPhotos'])->get();
+            return response()->json([
+                'error' => false,
+                'data' => $query,
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => true,
+                'message' => 'Something went wrong please contact support center',
+                'dev_message' => $e->getMessage(),
+            ], 400);
+        }
     }
 
     /**
@@ -81,7 +93,7 @@ class FoodItemController extends Controller
             $foodItem->save();
 
             if (isset($request->food_photos)) {
-                foreach ($request->food_photos as $photo) {   
+                foreach ($request->food_photos as $photo) {
                     $fileExtension = $photo->extension();
                     $newFileName = "foods/" . uniqid() . "." . $fileExtension;
                     Storage::putFileAs('public', $photo, $newFileName);

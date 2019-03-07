@@ -21,4 +21,12 @@ class FoodItem extends Model
     {
         return $this->hasMany('App\FoodPhoto');
     }
+
+     /**
+     * Get the post that owns the comment.
+     */
+    public function shop()
+    {
+        return $this->belongsTo('App\Shop', 'shop_id');
+    }
 }

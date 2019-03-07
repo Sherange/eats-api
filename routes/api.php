@@ -26,6 +26,7 @@ Route::middleware('auth:api')->group(function () {
     Route::patch('user/{user}', 'UserController@update');
     Route::post('profile-photo/{user}', 'UserController@upload');
 
+    Route::get('foods', 'FoodItemController@index');
     Route::resource('food-item', 'FoodItemController');
     Route::resource('food-photos', 'FoodPhotoController');
     Route::get('shop-foods/{shop_id}', 'FoodItemController@getShopFoods');
