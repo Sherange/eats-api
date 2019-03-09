@@ -16,10 +16,31 @@ class FoodItemController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         try {
             $query = FoodItem::with(['shop', 'foodPhotos', 'shop.shopPhotos'])->get();
+
+            if ($request->filters == 'lunch') {
+                $query = $query->where('category', 0);
+            }
+
+            if ($request->filters == 'breakfast') {
+                $query = $query->where('category', 1);
+            }
+
+            if ($request->filters == 'dinner') {
+                $query = $query->where('category', 2);
+            }
+
+            if ($request->filters == 'drinks') {
+                $query = $query->where('category', 3);
+            }
+
+            if ($request->filters == 'desserts') {
+                $query = $query->where('category', 4);
+            }
+
             return response()->json([
                 'error' => false,
                 'data' => $query,
