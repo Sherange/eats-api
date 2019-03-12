@@ -121,7 +121,7 @@ class ShopController extends Controller
           
           $shop->shop_address =  $shop->shopAddress()->first();
           $shop->shop_photos =  $shop->shopPhotos()->get();
-        //   $shop->shop_foodItems =  $shop->shopFoodItems()->get();
+          //$shop->shop_foodItems =  $shop->shopFoodItems()->get();
            
            return response()->json([
                 'error' => false,

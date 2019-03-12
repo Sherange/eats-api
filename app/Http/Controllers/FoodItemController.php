@@ -19,26 +19,30 @@ class FoodItemController extends Controller
     public function index(Request $request)
     {
         try {
-            $query = FoodItem::with(['shop', 'foodPhotos', 'shop.shopPhotos'])->get();
+            $query = FoodItem::with(['shop', 'foodPhotos', 'shop.shopPhotos', 'shop.shopAddress']);
 
             if ($request->filters == 'lunch') {
-                $query = $query->where('category', 0);
+                $query = $query->where('category', 0)->get();
             }
 
             if ($request->filters == 'breakfast') {
-                $query = $query->where('category', 1);
+                $query = $query->where('category', 1)->get();
             }
 
             if ($request->filters == 'dinner') {
-                $query = $query->where('category', 2);
+                $query = $query->where('category', 2)->get();
             }
 
             if ($request->filters == 'drinks') {
-                $query = $query->where('category', 3);
+                $query = $query->where('category', 3)->get();
             }
 
             if ($request->filters == 'desserts') {
-                $query = $query->where('category', 4);
+                $query = $query->where('category', 4)->get();
+            }
+
+            if (!$request->filters) {
+                $query = $query->get();
             }
 
             return response()->json([
