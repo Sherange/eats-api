@@ -66,8 +66,14 @@ class UserController extends Controller
      */
     public function getUser(Request $request)
     {
+        $data = [];
+        $data['user_count'] =  User::count(); 
+        $data['shop_count'] =  'App\Shop'::count(); 
+        $data['order_count'] =  'App\Order'::count(); 
+        $data['food_count'] =  'App\FoodItem'::count(); 
         $user = $request->user();
         $user->user_address = $user->userAddress()->first();
+        $user->meta = $data;
         return $user;
     }
 
