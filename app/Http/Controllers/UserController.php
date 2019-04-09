@@ -40,6 +40,7 @@ class UserController extends Controller
             $user->name = $request->name;
             $user->email = $request->email;
             $user->password = bcrypt($request->password);
+            $user->user_type = "user";
             $user->save();
 
             return response()->json([
@@ -115,6 +116,7 @@ class UserController extends Controller
             $user->date_of_birth = $request->date_of_birth;
             $user->gender = $request->gender;
             $user->description = $request->description;
+            $user->user_type = "user";
 
             $userAddress = UserAddress::firstOrNew(['user_id' => $user->id]);
             $userAddress->address = $request->address;
