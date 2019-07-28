@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Validator;
 use App\ShopPhotos;
+use PDF;
 
 class ShopController extends Controller
 {
@@ -248,6 +249,25 @@ class ShopController extends Controller
                 'error' => true,
                 'message' => 'Something went wrong please contact support center',
                 'dev_message' => $e->getMessage(),
+            ], 400);
+        }
+    }
+
+    public function getShopReport(Request $request)
+    {
+        try {
+            $shops = Shop::all();
+            $pdf = PDF::loadView('/reports/shop_report',['shops' => $shops]);  
+            // return $pdf->download('medium.pdf');
+            return view('/reports/shop_report',['shops' => $shops]);
+
+
+          
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => true,
+                'message' => "Something went wrong please contact support center",
+                'dev_message' => $e->getMessage()
             ], 400);
         }
     }

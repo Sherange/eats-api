@@ -37,3 +37,7 @@ Route::middleware('auth:api')->group(function () {
     //order routes
     Route::resource('order', 'OrderController');
 });
+
+Route::get('/reports/user-report','UserController@getUserReport');
+Route::get('/reports/shop-report','ShopController@getShopReport');
+Route::get('/reports/food-report','FoodItemController@getFoodReport');

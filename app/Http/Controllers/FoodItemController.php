@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Validator;
 use League\Flysystem\Exception;
+use PDF;
 
 class FoodItemController extends Controller
 {
@@ -211,5 +212,32 @@ class FoodItemController extends Controller
     public function destroy(FoodItem $foodItem)
     {
         //
+    }
+
+   /**
+     * Generate PDF report
+     *
+     * @param  \App\FoodItem  $foodItem
+     * @return \Illuminate\Http\Response
+     */
+
+    public function getFoodReport(Request $request)
+    {
+        try {
+            $query = FoodItem::with(['shop', 'foodPhotos', 'shop.shopPhotos', 'shop.shopAddress'])->get();
+            // dd($query);
+            // $pdf = PDF::loadView('/reports/food_report',['foods' => $query]);  
+            // return $pdf->download('medium.pdf');
+            return view('/reports/food_report',['foods' => $query]);
+
+
+          
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => true,
+                'message' => "Something went wrong please contact support center",
+                'dev_message' => $e->getMessage()
+            ], 400);
+        }
     }
 }

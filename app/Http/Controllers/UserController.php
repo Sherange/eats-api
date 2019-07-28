@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Storage;
 use Validator;
 use App\UserAddress;
 use App\User;
+use PDF;
 
 
 class UserController extends Controller
@@ -170,7 +171,7 @@ class UserController extends Controller
                     'message' => 'Photos Upload Successfully',
                 ], 200);
             }
-        } catch (\Exception $e) {
+        } catch (\Exception $e) {            
             return response()->json([
                 'error' => true,
                 'message' => 'Something went wrong please contact support center',
@@ -179,4 +180,23 @@ class UserController extends Controller
         }
     }
 
+
+    public function getUserReport(Request $request)
+    {
+        try {
+            $users = User::all()->where('user_type','!=', "admin");
+            $pdf = PDF::loadView('/reports/user_report',['users' => $users]);  
+            // return $pdf->download('medium.pdf');
+            return view('/reports/user_report',['users' => $users]);
+
+
+          
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => true,
+                'message' => "Something went wrong please contact support center",
+                'dev_message' => $e->getMessage()
+            ], 400);
+        }
+    }
 }
