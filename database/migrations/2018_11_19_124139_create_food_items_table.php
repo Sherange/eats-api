@@ -16,8 +16,8 @@ class CreateFoodItemsTable extends Migration
         Schema::create('food_items', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name', 100)->nullable(false);
-            $table->integer('category')->nullable(false);
-            $table->integer('type')->nullable(false);
+            $table->string('category',100)->nullable(false);
+            $table->string('type',100)->nullable(false);
             $table->float('price', 8, 2)->nullable(false);
             $table->text('description')->nullable(false);
             $table->unsignedInteger('shop_id');

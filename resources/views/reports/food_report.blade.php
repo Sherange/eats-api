@@ -18,21 +18,21 @@
 
         <title>Eats - Food Item Report</title>
     </head>
-    <body style="margin: 10px;">
-        <div class="container" style="border: 1px solid #000000">
+    <body style="margin: 10px;" style="width:100%">
+        <div class="container-fliud" style="border: 1px solid #000000">
             <div class="container" style="margin: 10px;">
                 <h2>Food Court Management System</h2>
                 <p>Foods detail report</p>
             </div>
 
-            <table class="table">
+            <table class="table" style="width:100%" width="100%">
                 <thead class="thead-dark">
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">Food Name</th>
-                        <th scope="col">Cuisines available</th>
-                        <th scope="col">Opening hours</th>
-                        <th scope="col">Phone number</th>
+                        <th scope="col">Meal Type</th>
+                        <th scope="col">Meal Price (RS)</th>
+                        <th scope="col">Shop Name</th>
                         <th scope="col">Created Date</th>
                     </tr>
                 </thead>

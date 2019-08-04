@@ -16,8 +16,8 @@ class CreateShopsTable extends Migration
         Schema::create('shops', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name',100)->nullable(false);
-            $table->integer('cuisines_available')->nullable(false);
-            $table->integer('opening_hours')->nullable(false);
+            $table->string('cuisines_available',100)->nullable(false);
+            $table->string('opening_hours',100)->nullable(false);
             $table->string('phone_number',100)->nullable(true);
             $table->boolean('verified_phone')->default(0);
             $table->text('description')->nullable(false);

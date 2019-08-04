@@ -93,8 +93,8 @@ class FoodItemController extends Controller
         try {
             $validator = Validator::make($request->all(), [
                 'name' => 'bail|required|string|max:100',
-                'category' => 'bail|required|integer',
-                'type' => 'bail|required|integer',
+                'category' => 'bail|required|string|max:100',
+                'type' => 'bail|required|string|max:100',
                 'price' => 'bail|required|integer',
                 'description' => 'bail|required|string',
                 'food_photos' => 'required'
@@ -225,10 +225,9 @@ class FoodItemController extends Controller
     {
         try {
             $query = FoodItem::with(['shop', 'foodPhotos', 'shop.shopPhotos', 'shop.shopAddress'])->get();
-            // dd($query);
-            // $pdf = PDF::loadView('/reports/food_report',['foods' => $query]);  
-            // return $pdf->download('medium.pdf');
-            return view('/reports/food_report',['foods' => $query]);
+            $pdf = PDF::loadView('/reports/food_report',['foods' => $query])->setPaper('a4', 'landscape');  
+            return $pdf->download('food_report.pdf');
+            // return view('/reports/food_report',['foods' => $query]);
 
 
           

@@ -18,6 +18,7 @@ Route::group(['prefix' => 'user'], function () {
 });
 
 Route::middleware('auth:api')->group(function () {
+    
     //shop routes
     Route::resource('shop', 'ShopController');
     Route::resource('shop-photos', 'ShopPhotoController');

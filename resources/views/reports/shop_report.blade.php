@@ -18,14 +18,14 @@
 
         <title>Eats - Shops Report</title>
     </head>
-    <body style="margin: 10px;">
-        <div class="container" style="border: 1px solid #000000">
+    <body style="margin: 10px;" style="width:100%">
+        <div class="container-fliud" style="border: 1px solid #000000">
             <div class="container" style="margin: 10px;">
                 <h2>Food Court Management System</h2>
                 <p>Shops detail report</p>
             </div>
 
-            <table class="table">
+            <table class="table" style="width:100%" width="100%">
                 <thead class="thead-dark">
                     <tr>
                         <th scope="col">#</th>

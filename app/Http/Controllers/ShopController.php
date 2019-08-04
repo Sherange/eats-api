@@ -55,9 +55,9 @@ class ShopController extends Controller
 
             $validator = Validator::make($request->all(), [
                 'name' => 'bail|required|string|max:100',
-                'cuisines_available' => 'bail|required|integer',
-                'opening_hours' => 'bail|required|integer',
-                'phone_number' => 'bail|required|integer',
+                'cuisines_available' => 'bail|required|string|max:100',
+                'opening_hours' => 'bail|required|string|max:100',
+                'phone_number' => 'bail|required|string|max:10',
                 'description' => 'bail|required|string',
                 'address' => 'bail|required|string|max:100',
                 'street_one' => 'bail|required|string|max:100',
@@ -257,9 +257,9 @@ class ShopController extends Controller
     {
         try {
             $shops = Shop::all();
-            $pdf = PDF::loadView('/reports/shop_report',['shops' => $shops]);  
-            // return $pdf->download('medium.pdf');
-            return view('/reports/shop_report',['shops' => $shops]);
+            $pdf = PDF::loadView('/reports/shop_report',['shops' => $shops])->setPaper('a4', 'landscape');  
+            return $pdf->download('shop_report.pdf');
+            // return view('/reports/shop_report',['shops' => $shops]);
 
 
           
