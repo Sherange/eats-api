@@ -186,11 +186,8 @@ class UserController extends Controller
         try {
             $users = User::all()->where('user_type','!=', "admin");
             $pdf = PDF::loadView('/reports/user_report',['users' => $users]);  
-            // return $pdf->download('medium.pdf');
-            return view('/reports/user_report',['users' => $users]);
-
-
-          
+            return $pdf->download('user_report.pdf');
+            // return view('/reports/user_report',['users' => $users]);          
         } catch (\Exception $e) {
             return response()->json([
                 'error' => true,

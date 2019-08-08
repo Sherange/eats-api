@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Order;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Validator;
+use PDF;
 
 class OrderController extends Controller
 {
@@ -118,5 +120,46 @@ class OrderController extends Controller
     public function destroy(Orders $orders)
     {
         //
+    }
+
+    public function getOrderReport(Request $request)
+    {
+        try {
+            $query = DB::table('orders')
+            ->join('users', 'orders.user_id', '=', 'users.id')
+            // ->join('orders', 'orders.id', '=', 'orders.user_id')
+            ->select('orders.id', 'orders.amount', 'orders.table_id', 'users.name', 'orders.created_at')
+            ->get();
+
+            $balance = DB::table('orders')->sum('orders.amount');
+
+            $queryLength = DB::table('orders')->count();
+
+
+            $pdf = PDF::loadView(
+                '/reports/order_report',
+                [
+                    'orders' => $query,
+                    'balance' => $balance,
+                    'length' => $queryLength
+                ]
+                
+                );
+         
+            return $pdf->download('order_report.pdf');
+            
+            
+            // return view('/reports/order_report', [
+            //          'orders' => $query,
+            //         'balance' => $balance,
+            //         'length' => $queryLength
+            //     ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => true,
+                'message' => "Something went wrong please contact support center",
+                'dev_message' => $e->getMessage()
+            ], 400);
+        }
     }
 }

@@ -42,3 +42,4 @@ Route::middleware('auth:api')->group(function () {
 Route::get('/reports/user-report','UserController@getUserReport');
 Route::get('/reports/shop-report','ShopController@getShopReport');
 Route::get('/reports/food-report','FoodItemController@getFoodReport');
+Route::get('/reports/order-report','OrderController@getOrderReport');
