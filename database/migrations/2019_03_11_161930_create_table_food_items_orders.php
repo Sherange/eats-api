@@ -16,8 +16,8 @@ class CreateTableFoodItemsOrders extends Migration
         Schema::create('food_item_order', function (Blueprint $table) {
             $table->unsignedInteger('order_id');
             $table->unsignedInteger('food_item_id');
-            $table->foreign('order_id')->references('id')->on('orders');
-            $table->foreign('food_item_id')->references('id')->on('food_items');
+            $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
+            $table->foreign('food_item_id')->references('id')->on('food_items')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -29,6 +29,7 @@ class CreateTableFoodItemsOrders extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('food_items_orders');
     }
 }

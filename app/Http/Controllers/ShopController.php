@@ -33,7 +33,6 @@ class ShopController extends Controller
                     'message' => 'Shops not available',
                 ], 400);
             }
-
         } catch (\Excepton $e) {
             return response()->json([
                 'error' => true,
@@ -52,7 +51,6 @@ class ShopController extends Controller
     public function store(Request $request)
     {
         try {
-
             $validator = Validator::make($request->all(), [
                 'name' => 'bail|required|string|max:100',
                 'cuisines_available' => 'bail|required|string|max:100',
@@ -99,7 +97,6 @@ class ShopController extends Controller
                 'message' => 'Successfully created shop!',
                 'data' => $shop->fresh('shopAddress'),
             ], 201);
-
         } catch (\Excepton $e) {
             return response()->json([
                 'error' => true,
@@ -107,7 +104,6 @@ class ShopController extends Controller
                 'dev_message' => $e->getMessage(),
             ], 400);
         }
-
     }
 
     /**
@@ -119,16 +115,14 @@ class ShopController extends Controller
     public function show(Shop $shop)
     {
         try {
-          
-          $shop->shop_address =  $shop->shopAddress()->first();
-          $shop->shop_photos =  $shop->shopPhotos()->get();
-          //$shop->shop_foodItems =  $shop->shopFoodItems()->get();
+            $shop->shop_address =  $shop->shopAddress()->first();
+            $shop->shop_photos =  $shop->shopPhotos()->get();
+            //$shop->shop_foodItems =  $shop->shopFoodItems()->get();
            
-           return response()->json([
+            return response()->json([
                 'error' => false,
                 'data' => $shop,
             ], 200);
-
         } catch (\Excepton $e) {
             return response()->json([
                 'error' => true,
@@ -149,7 +143,6 @@ class ShopController extends Controller
     public function update(Request $request, Shop $shop)
     {
         try {
-
             $validator = Validator::make($request->all(), [
                 'name' => 'bail|required|string|max:100',
                 'cuisines_available' => 'bail|required|string|max:100',
@@ -194,7 +187,6 @@ class ShopController extends Controller
                 'message' => 'Successfully  updated!',
                 'data' => $shop->fresh(['shopPhotos', 'shopAddress']),
             ], 200);
-
         } catch (\Excepton $e) {
             return response()->json([
                 'error' => true,
@@ -213,14 +205,22 @@ class ShopController extends Controller
     public function destroy(Shop $shop)
     {
         try {
+            $items = $shop->shopFoodItems()->get();
+            
+            foreach ($items as $item) {
+                $item->orders()->detach();
+                $item->foodPhotos()->delete();
+                $item->delete();
+            }
 
+            $shop->shopAddress()->delete();
+            $shop->shopPhotos()->delete();
             $shop->delete();
 
             return response()->json([
                 'error' => false,
                 'message' => 'Successfully removed!'
             ], 200);
-
         } catch (\Excepton $e) {
             return response()->json([
                 'error' => true,
@@ -243,7 +243,6 @@ class ShopController extends Controller
                 'error' => false,
                 'data' => $shops,
             ], 200);
-
         } catch (\Exception $e) {
             return response()->json([
                 'error' => true,
@@ -257,12 +256,9 @@ class ShopController extends Controller
     {
         try {
             $shops = Shop::all();
-            $pdf = PDF::loadView('/reports/shop_report',['shops' => $shops])->setPaper('a4', 'landscape');  
+            $pdf = PDF::loadView('/reports/shop_report', ['shops' => $shops])->setPaper('a4', 'landscape');
             return $pdf->download('shop_report.pdf');
             // return view('/reports/shop_report',['shops' => $shops]);
-
-
-          
         } catch (\Exception $e) {
             return response()->json([
                 'error' => true,

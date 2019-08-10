@@ -36,6 +36,6 @@ class FoodItem extends Model
      */
     public function orders()
     {
-        return $this->belongsToMany('App\FoodItem');
+        return $this->belongsToMany('App\Order');
     }
 }

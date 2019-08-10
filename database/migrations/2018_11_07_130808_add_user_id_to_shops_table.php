@@ -26,9 +26,9 @@ class AddUserIdToShopsTable extends Migration
      */
     public function down()
     {
-        Schema::disableForeignKeyConstraints();
-        Schema::table('shops', function (Blueprint $table) {
-            $table->dropColumn('user_id');
-        });
+        // Schema::disableForeignKeyConstraints();
+        // Schema::table('shops', function (Blueprint $table) {
+        //     $table->dropColumn('user_id');
+        // });
     }
 }

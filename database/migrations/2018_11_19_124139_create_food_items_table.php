@@ -22,7 +22,7 @@ class CreateFoodItemsTable extends Migration
             $table->text('description')->nullable(false);
             $table->unsignedInteger('shop_id');
             $table->timestamps();
-            $table->foreign('shop_id')->references('id')->on('shops');
+            $table->foreign('shop_id')->references('id')->on('shops')->onDelete('cascade');
         });
     }
 
