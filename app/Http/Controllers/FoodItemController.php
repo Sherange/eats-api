@@ -21,13 +21,14 @@ class FoodItemController extends Controller
     {
         try {
             $query = FoodItem::with(['shop', 'foodPhotos', 'shop.shopPhotos', 'shop.shopAddress']);
-
+          
             if ($request->filters == 'lunch') {
                 $query = $query->where('category', "Lunch")->get();
             }
 
             if ($request->filters == 'breakfast') {
-                $query = $query->where('category', "Breakfast")->get();
+                // dd($request->filters);
+                $query = $query->where('category', "Break fast")->get();
             }
 
             if ($request->filters == 'dinner') {
@@ -169,7 +170,6 @@ class FoodItemController extends Controller
     public function update(Request $request, FoodItem $foodItem)
     {
         try {
-
             $validator = Validator::make($request->all(), [
                 'name' => 'bail|required|string|max:100',
                 'category' => 'bail|required|integer',
@@ -200,7 +200,8 @@ class FoodItemController extends Controller
                 'message' => 'Food item successfully updated!',
                 'data' => $foodItem->fresh(),
             ], 200);
-        } catch (\Exception $e) { }
+        } catch (\Exception $e) {
+        }
     }
 
     /**
@@ -214,23 +215,20 @@ class FoodItemController extends Controller
         //
     }
 
-   /**
-     * Generate PDF report
-     *
-     * @param  \App\FoodItem  $foodItem
-     * @return \Illuminate\Http\Response
-     */
+    /**
+      * Generate PDF report
+      *
+      * @param  \App\FoodItem  $foodItem
+      * @return \Illuminate\Http\Response
+      */
 
     public function getFoodReport(Request $request)
     {
         try {
             $query = FoodItem::with(['shop', 'foodPhotos', 'shop.shopPhotos', 'shop.shopAddress'])->get();
-            $pdf = PDF::loadView('/reports/food_report',['foods' => $query])->setPaper('a4', 'landscape');  
+            $pdf = PDF::loadView('/reports/food_report', ['foods' => $query])->setPaper('a4', 'landscape');
             return $pdf->download('food_report.pdf');
             // return view('/reports/food_report',['foods' => $query]);
-
-
-          
         } catch (\Exception $e) {
             return response()->json([
                 'error' => true,
