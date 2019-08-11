@@ -27,7 +27,7 @@ class FoodItemController extends Controller
             }
 
             if ($request->filters == 'breakfast') {
-                // dd($request->filters);
+                dd($request->filters);
                 $query = $query->where('category', "Break fast")->get();
             }
 
