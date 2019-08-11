@@ -20,7 +20,7 @@ class AddAdminDataToUsersTable extends Migration
                     'name' => 'admin', 
                     'email' => 'admin', 
                     'user_type' => 'admin',
-                    'password' => bcrypt('admin123')
+                    'password' => bcrypt('admin')
                     ]
             );
         });

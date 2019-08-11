@@ -29,7 +29,7 @@
                 <thead class="thead-dark">
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Shop Name Name</th>
+                        <th scope="col">Shop Name</th>
                         <th scope="col">Cuisines available</th>
                         <th scope="col">Opening hours</th>
                         <th scope="col">Phone number</th>
