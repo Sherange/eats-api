@@ -22,12 +22,13 @@ class FoodItemController extends Controller
         try {
             $query = FoodItem::with(['shop', 'foodPhotos', 'shop.shopPhotos', 'shop.shopAddress']);
           
+            dd($request->filters);
+            
             if ($request->filters == 'lunch') {
                 $query = $query->where('category', "Lunch")->get();
             }
 
             if ($request->filters == 'breakfast') {
-                dd($request->filters);
                 $query = $query->where('category', "Break fast")->get();
             }
 
