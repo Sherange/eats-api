@@ -23,23 +23,23 @@ class FoodItemController extends Controller
             $query = FoodItem::with(['shop', 'foodPhotos', 'shop.shopPhotos', 'shop.shopAddress']);
 
             if ($request->filters == 'lunch') {
-                $query = $query->where('category', 0)->get();
+                $query = $query->where('category', "Lunch")->get();
             }
 
             if ($request->filters == 'breakfast') {
-                $query = $query->where('category', 1)->get();
+                $query = $query->where('category', "Breakfast")->get();
             }
 
             if ($request->filters == 'dinner') {
-                $query = $query->where('category', 2)->get();
+                $query = $query->where('category', "Dinner")->get();
             }
 
             if ($request->filters == 'drinks') {
-                $query = $query->where('category', 3)->get();
+                $query = $query->where('category', "Drinks")->get();
             }
 
             if ($request->filters == 'desserts') {
-                $query = $query->where('category', 4)->get();
+                $query = $query->where('category', "Desserts")->get();
             }
 
             if (!$request->filters) {
