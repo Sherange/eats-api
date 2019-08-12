@@ -211,7 +211,25 @@ class FoodItemController extends Controller
      */
     public function destroy(FoodItem $foodItem)
     {
-        //
+        try {
+            $photos = $foodItem->foodPhotos()->get();
+
+            foreach ($photos as $photo) {
+                $photo->delete();
+            }
+            $foodItem->delete();
+
+            return response()->json([
+                'error' => false,
+                'message' => 'Successfully removed!'
+            ], 200);
+        } catch (\Excepton $e) {
+            return response()->json([
+                'error' => true,
+                'message' => 'Something went wrong please contact support center',
+                'dev_message' => $e->getMessage(),
+            ], 400);
+        }
     }
 
     /**
