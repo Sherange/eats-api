@@ -65,7 +65,7 @@ class OrderController extends Controller
 
             return response()->json([
                 'error' => false,
-                'message' => 'Successfully placed your order',
+                'message' => 'Successfully placed your order. Enjoy  🥳 👨🏻‍🍳 🍽 👩🏻‍🍳 🥳',
                 'data' => $order->fresh('foodItems'),
             ], 201);
         } catch (\Excepton $e) {
